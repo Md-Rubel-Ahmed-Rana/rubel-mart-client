@@ -3,7 +3,6 @@ import CategoriesSection from "./categories-section";
 import FeaturedProductsSection from "./featured-products";
 import FlashSaleSection from "./flash-sale";
 import HeroSection from "./hero-section";
-import NewsletterSection from "./newsletter";
 
 const Home = () => {
   return (
@@ -13,7 +12,6 @@ const Home = () => {
       <FeaturedProductsSection />
       <FlashSaleSection />
       <BrandsSection />
-      <NewsletterSection />
     </>
   );
 };

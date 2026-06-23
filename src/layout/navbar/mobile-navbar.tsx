@@ -1,11 +1,8 @@
 "use client";
 
 import Link from "next/link";
-
 import { Menu } from "lucide-react";
-
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
 import SearchBar from "./search-bar";
 import CartButton from "./cart-button";
 import Image from "next/image";
