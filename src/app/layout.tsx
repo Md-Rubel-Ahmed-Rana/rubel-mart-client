@@ -5,6 +5,7 @@ import { ThemeProviders } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import Navbar from "@/layout/navbar";
 import { generateSeoMetadata } from "@/SEO";
+import Footer from "@/layout/footer";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -108,6 +109,7 @@ export default function RootLayout({
         <ThemeProviders>
           <Navbar />
           {children}
+          <Footer />
         </ThemeProviders>
       </body>
     </html>

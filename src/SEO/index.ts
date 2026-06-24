@@ -215,10 +215,8 @@ export const generateSeoMetadata = ({
       description,
       images: [image],
     },
-
     applicationName: "Rubel Mart",
     manifest: "/manifest.json",
-    themeColor: "#6d28d9",
 
     appleWebApp: {
       capable: true,
