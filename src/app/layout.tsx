@@ -20,7 +20,7 @@ export const seo = generateSeoMetadata({
   schemaTypes: ["Organization", "WebSite", "OnlineStore"],
 });
 
-export const metadata: Metadata = seo;
+export const metadata: Metadata = seo as Metadata;
 
 export default function RootLayout({
   children,
@@ -39,6 +39,60 @@ export default function RootLayout({
       )}
     >
       <head>
+        <meta name="application-name" content="Rubel Mart" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Rubel Mart" />
+        <meta
+          name="description"
+          content="Rubel Mart is a modern e-commerce platform offering electronics, fashion, home essentials, beauty products, and more with secure payments and fast delivery."
+        />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="msapplication-TileColor" content="#6d28d9" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="theme-color" content="#6d28d9" />
+        <link rel="manifest" href="/manifest.json" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/icons/apple-touch-icon.png"
+        />
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Rubel Mart" />
+        <meta
+          name="twitter:description"
+          content="Shop electronics, fashion, home essentials, beauty products, and more at Rubel Mart."
+        />
+        <meta
+          name="twitter:image"
+          content="https://rubelmart.com/og-image.png"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Rubel Mart" />
+        <meta property="og:title" content="Rubel Mart" />
+        <meta
+          property="og:description"
+          content="Shop electronics, fashion, home essentials, beauty products, and more at Rubel Mart."
+        />
+        <meta property="og:url" content="https://rubelmart.com" />
+        <meta
+          property="og:image"
+          content="https://rubelmart.com/og-image.png"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

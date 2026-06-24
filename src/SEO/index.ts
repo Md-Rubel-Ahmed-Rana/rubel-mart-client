@@ -44,6 +44,7 @@ type SeoParams = {
     applicationCategory: string;
     offers?: { price: string; priceCurrency: string };
   };
+  appleWebApp?: any;
 };
 
 export const generateSeoMetadata = ({
@@ -187,7 +188,9 @@ export const generateSeoMetadata = ({
     title,
     description,
     keywords: keywords.join(", "),
-    metadataBase: new URL(url),
+    metadataBase:
+      new URL("https://rubelmart.com") ||
+      new URL("https://rubel-mart.vercel.app"),
 
     openGraph: {
       title,
@@ -211,6 +214,30 @@ export const generateSeoMetadata = ({
       title,
       description,
       images: [image],
+    },
+
+    applicationName: "Rubel Mart",
+    manifest: "/manifest.json",
+    themeColor: "#6d28d9",
+
+    appleWebApp: {
+      capable: true,
+      title: "Rubel Mart",
+      statusBarStyle: "default",
+    },
+
+    icons: {
+      icon: [
+        { url: "/favicon.ico" },
+        { url: "/favicon-32x32.png", sizes: "32x32" },
+        { url: "/favicon-16x16.png", sizes: "16x16" },
+      ],
+      apple: [
+        {
+          url: "/icons/apple-touch-icon.png",
+          sizes: "180x180",
+        },
+      ],
     },
 
     schemas,
