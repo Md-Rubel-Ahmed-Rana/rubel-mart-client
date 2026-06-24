@@ -19,7 +19,9 @@ export default function DesktopNavbar() {
             className="relative shrink-0"
           >
             <Image
-              src="/logo.png"
+              src={
+                "https://res.cloudinary.com/dv2ocmcyo/image/upload/v1782312303/rubel-mart-logo-branding_jriqlm.png"
+              }
               alt="Rubel Mart"
               fill
               className="object-contain"

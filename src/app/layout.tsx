@@ -38,6 +38,18 @@ export default function RootLayout({
         geist.variable,
       )}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(seo.schemas, null, 2),
+          }}
+        />
+        <meta name="apple-mobile-web-app-title" content="Rubel" />
+        <meta name="application-name" content="Rubel" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      </head>
       <body className="min-h-full flex flex-col container mx-auto">
         <ThemeProviders>
           <Navbar />
