@@ -11,13 +11,12 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function UserMenu() {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   if (!isLoggedIn) {
     return (
       <div className="flex items-center gap-2">
-        <Link href="/login">Login</Link>
-        <Link href="/register">Register</Link>
+        <Link href="/signin">Sign in</Link>
       </div>
     );
   }

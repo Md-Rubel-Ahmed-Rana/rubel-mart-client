@@ -27,13 +27,18 @@ export default function MobileNavbar() {
             </SheetContent>
           </Sheet>
 
-          <Link href="/" className="relative h-18 w-45 shrink-0">
+          <Link
+            style={{ height: "72px", width: "180px" }}
+            href="/"
+            className="relative shrink-0"
+          >
             <Image
               src="/logo.png"
               alt="Rubel Mart"
               fill
               className="object-contain"
               priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </Link>
 

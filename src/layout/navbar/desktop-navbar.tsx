@@ -13,13 +13,18 @@ export default function DesktopNavbar() {
     <div className="hidden lg:block">
       <div className="container mx-auto">
         <div className="flex h-18 items-center gap-6">
-          <Link href="/" className="relative h-18 w-45 shrink-0">
+          <Link
+            style={{ height: "72px", width: "180px" }}
+            href="/"
+            className="relative shrink-0"
+          >
             <Image
               src="/logo.png"
               alt="Rubel Mart"
               fill
               className="object-contain"
               priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </Link>
 
