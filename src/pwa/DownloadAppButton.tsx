@@ -1,27 +1,50 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+
+import Image from "next/image";
 import { usePwaInstall } from "../hooks/usePwaInstall";
 
 type Props = {
-  variant?: "default" | "outline" | "secondary";
   className?: string;
 };
 
-const DownloadAppButton = ({ variant = "default", className }: Props) => {
+const DownloadAppButton = ({ className }: Props) => {
   const { canInstall, installApp } = usePwaInstall();
 
   if (!canInstall) return null;
 
   return (
-    <Button
+    <button
+      type="button"
       onClick={installApp}
-      variant={variant}
-      className={`gap-2 font-medium ${className}`}
+      aria-label="Install Rubel Mart App"
+      className={`
+        group
+        transition-all
+        duration-300
+        hover:scale-[1.03]
+        active:scale-[0.98]
+        cursor-pointer
+        ${className}
+      `}
     >
-      <Download size={18} />
-      <span className="text-xs lg:text-lg">Download App</span>
-    </Button>
+      <Image
+        src="/icons/app-store-google-play-apple-apple-text-logo.png"
+        alt="Download Rubel Mart App"
+        width={260}
+        height={78}
+        priority
+        className="
+          h-auto
+          w-auto
+          max-w-55
+          rounded-xl
+          shadow-lg
+          transition-all
+          duration-300
+          group-hover:shadow-xl
+        "
+      />
+    </button>
   );
 };
 

@@ -60,7 +60,7 @@ const OfflinePage = () => {
           </div>
 
           <Image
-            src="/logo.png"
+            src="/favicon.png"
             alt="Rubel Mart"
             width={180}
             height={50}
