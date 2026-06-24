@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 
 export default function SearchBar() {
   return (
-    <div className="relative w-full max-w-2xl">
+    <div className="relative w-full max-w-2xl hidden lg:block pb-4">
       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
       <Input

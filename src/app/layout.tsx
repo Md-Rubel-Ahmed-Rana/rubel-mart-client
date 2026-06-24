@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/layout/navbar";
 import { generateSeoMetadata } from "@/SEO";
 import Footer from "@/layout/footer";
+import MobileBottomNavbar from "@/layout/bottombar";
+import BottomToTopScrollButton from "@/common/BottomToTopScrollButton";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -108,8 +110,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col container mx-auto">
         <ThemeProviders>
           <Navbar />
+          <MobileBottomNavbar />
           {children}
           <Footer />
+          <BottomToTopScrollButton />
         </ThemeProviders>
       </body>
     </html>
