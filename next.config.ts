@@ -8,7 +8,7 @@ const withPWA = pwa({
   clientsClaim: true,
   disable: process.env.NODE_ENV === "development",
   fallbacks: {
-    document: "/_offline",
+    document: "/offline",
     image: "",
     audio: "",
     video: "",

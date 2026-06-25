@@ -55,12 +55,8 @@ const OfflinePage = () => {
         <div className="h-2 bg-linear-to-r from-primary via-primary to-accent" />
 
         <CardContent className="p-8 text-center">
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
-            <WifiOff className="h-10 w-10 text-primary" />
-          </div>
-
           <Image
-            src="/favicon.png"
+            src="/icons/icon-512x512.png"
             alt="Rubel Mart"
             width={180}
             height={50}
@@ -68,9 +64,14 @@ const OfflinePage = () => {
             className="mx-auto mb-6 h-auto w-auto"
           />
 
-          <h1 className="text-3xl font-bold tracking-tight">
-            You&apos;re Offline
-          </h1>
+          <div className="flex items-center justify-center gap-2">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
+              <WifiOff className="h-10 w-10 text-primary" />
+            </div>
+            <h1 className="text-3xl font-bold tracking-tight">
+              You&apos;re Offline
+            </h1>
+          </div>
 
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
             It looks like your internet connection has been interrupted. Rubel
