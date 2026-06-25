@@ -9,9 +9,9 @@ type Props = {
 };
 
 const DownloadAppButton = ({ className }: Props) => {
-  const { canInstall, installApp, isInstalled } = usePwaInstall();
+  const { canInstall, installApp } = usePwaInstall();
 
-  if (!isInstalled) {
+  if (!canInstall) {
     return (
       <div
         className="
@@ -31,10 +31,6 @@ const DownloadAppButton = ({ className }: Props) => {
         Rubel Mart App Installed
       </div>
     );
-  }
-
-  if (!canInstall) {
-    return null;
   }
 
   return (
