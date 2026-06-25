@@ -6,18 +6,40 @@ let deferredPrompt: any = null;
 
 export const usePwaInstall = () => {
   const [canInstall, setCanInstall] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    const handler = (e: any) => {
+    // Detect if already running as installed PWA
+    const checkInstalled = () => {
+      const standalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        (window.navigator as any).standalone === true;
+
+      setIsInstalled(standalone);
+    };
+
+    checkInstalled();
+
+    const beforeInstallHandler = (e: any) => {
       e.preventDefault();
       deferredPrompt = e;
       setCanInstall(true);
     };
 
-    window.addEventListener("beforeinstallprompt", handler);
+    const appInstalledHandler = () => {
+      deferredPrompt = null;
+      setCanInstall(false);
+      setIsInstalled(true);
+    };
+
+    window.addEventListener("beforeinstallprompt", beforeInstallHandler);
+
+    window.addEventListener("appinstalled", appInstalledHandler);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("beforeinstallprompt", beforeInstallHandler);
+
+      window.removeEventListener("appinstalled", appInstalledHandler);
     };
   }, []);
 
@@ -25,6 +47,7 @@ export const usePwaInstall = () => {
     if (!deferredPrompt) return;
 
     deferredPrompt.prompt();
+
     const result = await deferredPrompt.userChoice;
 
     deferredPrompt = null;
@@ -33,5 +56,9 @@ export const usePwaInstall = () => {
     return result;
   };
 
-  return { canInstall, installApp };
+  return {
+    canInstall,
+    isInstalled,
+    installApp,
+  };
 };

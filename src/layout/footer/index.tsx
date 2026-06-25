@@ -12,9 +12,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <Link href="/" className="mb-4 inline-flex items-center gap-3">
               <Image
-                src={
-                  "https://res.cloudinary.com/dv2ocmcyo/image/upload/v1782312303/rubel-mart-logo-branding_jriqlm.png"
-                }
+                src={"/logo.png"}
                 alt="Rubel Mart"
                 width={140}
                 height={80}
