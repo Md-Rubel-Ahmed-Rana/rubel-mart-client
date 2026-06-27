@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -11,12 +10,14 @@ import {
   signinSchema,
   SigninSchemaType,
 } from "@/app/validations/auth.validation";
+import { useSignInMutation } from "@/app/apis/authApi";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const SigninForm = () => {
-  const { register }: any = {};
-
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [userSignIn, { isLoading, isError, error, isSuccess, data }] =
+    useSignInMutation();
+  const router = useRouter();
 
   const form = useForm<SigninSchemaType>({
     resolver: zodResolver(signinSchema),
@@ -26,38 +27,35 @@ const SigninForm = () => {
     },
   });
 
-  const onSubmit = async (values: SigninSchemaType) => {
-    setError("");
-    setSuccess("");
-
+  const handleUserSignUp = async (values: SigninSchemaType) => {
     try {
-      const response = await register(values);
-
+      const response = await userSignIn(values).unwrap();
       if (response.success) {
-        setSuccess(response.message ?? "Account created successfully.");
-
+        toast.success(response.message ?? "Account login successfully.");
         form.reset();
+        router.push("/signin");
       } else {
-        setError(response.message ?? "Something went wrong.");
+        toast.error(response.message ?? "Something went wrong.");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-
-      setError("Something went wrong. Please try again.");
+      toast.error(error?.message || "Something went wrong. Please try again.");
     }
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-      {error && (
+    <form onSubmit={form.handleSubmit(handleUserSignUp)} className="space-y-5">
+      {isError && (
         <Alert variant="destructive">
           {" "}
-          <AlertDescription>{error} </AlertDescription>{" "}
+          <AlertDescription>
+            {(error as any)?.message || (error as any)?.data?.message}{" "}
+          </AlertDescription>{" "}
         </Alert>
       )}
-      {success && (
+      {isSuccess && (
         <Alert>
-          <AlertDescription>{success}</AlertDescription>
+          <AlertDescription>{data?.message}</AlertDescription>
         </Alert>
       )}
       <div className="space-y-2">
@@ -65,6 +63,7 @@ const SigninForm = () => {
 
         <Input
           type="email"
+          disabled={isLoading}
           placeholder="john@example.com"
           {...form.register("email")}
         />
@@ -80,6 +79,7 @@ const SigninForm = () => {
 
         <Input
           type="password"
+          disabled={isLoading}
           placeholder="Enter your password"
           {...form.register("password")}
         />
@@ -90,15 +90,9 @@ const SigninForm = () => {
           </p>
         )}
       </div>
-      <Button
-        type="submit"
-        className="w-full"
-        disabled={form.formState.isSubmitting}
-      >
-        {form.formState.isSubmitting && (
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-        )}
-        Sign In
+      <Button type="submit" className="w-full" disabled={isLoading}>
+        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {isLoading ? "Signing..." : "Sign In"}
       </Button>
     </form>
   );

@@ -8,6 +8,8 @@ import { generateSeoMetadata } from "@/SEO";
 import Footer from "@/layout/footer";
 import MobileBottomNavbar from "@/layout/bottombar";
 import BottomToTopScrollButton from "@/common/BottomToTopScrollButton";
+import ReduxProvider from "@/redux/provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -108,13 +110,16 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body className="min-h-full flex flex-col container mx-auto">
-        <ThemeProviders>
-          <Navbar />
-          <MobileBottomNavbar />
-          {children}
-          <Footer />
-          <BottomToTopScrollButton />
-        </ThemeProviders>
+        <ReduxProvider>
+          <ThemeProviders>
+            <Navbar />
+            <MobileBottomNavbar />
+            {children}
+            <Footer />
+            <Toaster position="top-right" />
+            <BottomToTopScrollButton />
+          </ThemeProviders>
+        </ReduxProvider>
       </body>
     </html>
   );

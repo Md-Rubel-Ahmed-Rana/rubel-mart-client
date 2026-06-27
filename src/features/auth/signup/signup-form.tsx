@@ -1,22 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   signupSchema,
   SignupSchemaType,
 } from "@/app/validations/auth.validation";
+import { useSignUpMutation } from "@/app/apis/authApi";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
-  const { register }: any = {};
-
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [userSignUp, { isLoading }] = useSignUpMutation();
+  const router = useRouter();
 
   const form = useForm<SignupSchemaType>({
     resolver: zodResolver(signupSchema),
@@ -28,45 +27,34 @@ const SignupForm = () => {
     },
   });
 
-  const onSubmit = async (values: SignupSchemaType) => {
-    setError("");
-    setSuccess("");
-
+  const handleUserSignUp = async (values: SignupSchemaType) => {
     try {
-      const response = await register(values);
+      const response = await userSignUp(values).unwrap();
 
       if (response.success) {
-        setSuccess(response.message ?? "Account created successfully.");
-
+        toast.success(response.message ?? "Account created successfully.");
         form.reset();
+        router.push("/signin");
       } else {
-        setError(response.message ?? "Something went wrong.");
+        toast.error(response.message ?? "Something went wrong.");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-
-      setError("Something went wrong. Please try again.");
+      toast.error(error?.message || "Something went wrong. Please try again.");
     }
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-      {error && (
-        <Alert variant="destructive">
-          {" "}
-          <AlertDescription>{error} </AlertDescription>{" "}
-        </Alert>
-      )}
-      {success && (
-        <Alert>
-          <AlertDescription>{success}</AlertDescription>
-        </Alert>
-      )}
+    <form onSubmit={form.handleSubmit(handleUserSignUp)} className="space-y-5">
       <div className="grid gap-5 md:grid-cols-2">
         <div className="space-y-2">
           <label className="text-sm font-medium">First Name</label>
 
-          <Input placeholder="John" {...form.register("first_name")} />
+          <Input
+            disabled={isLoading}
+            placeholder="John"
+            {...form.register("first_name")}
+          />
 
           {form.formState.errors.first_name && (
             <p className="text-destructive text-sm">
@@ -78,7 +66,11 @@ const SignupForm = () => {
         <div className="space-y-2">
           <label className="text-sm font-medium">Last Name</label>
 
-          <Input placeholder="Doe" {...form.register("last_name")} />
+          <Input
+            disabled={isLoading}
+            placeholder="Doe"
+            {...form.register("last_name")}
+          />
 
           {form.formState.errors.last_name && (
             <p className="text-destructive text-sm">
@@ -92,6 +84,7 @@ const SignupForm = () => {
 
         <Input
           type="email"
+          disabled={isLoading}
           placeholder="john@example.com"
           {...form.register("email")}
         />
@@ -107,6 +100,7 @@ const SignupForm = () => {
 
         <Input
           type="password"
+          disabled={isLoading}
           placeholder="Enter your password"
           {...form.register("password")}
         />
@@ -117,15 +111,9 @@ const SignupForm = () => {
           </p>
         )}
       </div>
-      <Button
-        type="submit"
-        className="w-full"
-        disabled={form.formState.isSubmitting}
-      >
-        {form.formState.isSubmitting && (
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-        )}
-        Create Account
+      <Button type="submit" className="w-full" disabled={isLoading}>
+        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {isLoading ? "Creating" : "Create Account"}
       </Button>
     </form>
   );
