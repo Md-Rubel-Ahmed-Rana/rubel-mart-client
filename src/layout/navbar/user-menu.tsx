@@ -9,10 +9,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import Image from "next/image";
 
-export default function UserMenu() {
-  const isLoggedIn = false;
+type Props = {
+  isLoggedIn: boolean;
+  user_image_url?: string;
+};
 
+const UserMenu = ({ isLoggedIn, user_image_url }: Props) => {
   if (!isLoggedIn) {
     return (
       <div className="flex items-center gap-2">
@@ -22,10 +26,19 @@ export default function UserMenu() {
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger>
-        <Avatar>
-          <AvatarFallback>RA</AvatarFallback>
+        <Avatar className="cursor-pointer">
+          {user_image_url ? (
+            <Image
+              src={user_image_url}
+              alt="Profile"
+              fill
+              className="object-cover rounded-full"
+            />
+          ) : (
+            <AvatarFallback>RA</AvatarFallback>
+          )}
         </Avatar>
       </DropdownMenuTrigger>
 
@@ -46,4 +59,6 @@ export default function UserMenu() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
+
+export default UserMenu;

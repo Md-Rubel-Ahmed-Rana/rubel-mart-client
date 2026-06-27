@@ -9,7 +9,7 @@ import {
   signupSchema,
   SignupSchemaType,
 } from "@/app/validations/auth.validation";
-import { useSignUpMutation } from "@/app/apis/authApi";
+import { useSignUpMutation } from "@/apis/authApi";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 

@@ -1,3 +1,4 @@
+import { ICurrentUser } from "@/types/auth.type";
 import { baseApi } from "./baseApi";
 
 export type SignInBody = {
@@ -15,14 +16,6 @@ export type SignUpBody = {
 export type AuthResponse = {
   success: boolean;
   message: string;
-};
-
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  avatar?: string;
-  role: string;
 };
 
 export const authApi = baseApi.injectEndpoints({
@@ -44,11 +37,10 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    me: builder.query<User, void>({
+    getCurrentUser: builder.query<{ data: ICurrentUser }, void>({
       query: () => ({
-        url: "/auth/profile",
+        url: "/auth",
       }),
-
       providesTags: ["Auth"],
     }),
 
@@ -72,6 +64,6 @@ export const authApi = baseApi.injectEndpoints({
 export const {
   useSignInMutation,
   useSignUpMutation,
-  useMeQuery,
+  useGetCurrentUserQuery,
   useLogoutMutation,
 } = authApi;

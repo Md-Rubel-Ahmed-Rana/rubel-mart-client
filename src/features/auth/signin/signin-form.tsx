@@ -10,7 +10,7 @@ import {
   signinSchema,
   SigninSchemaType,
 } from "@/app/validations/auth.validation";
-import { useSignInMutation } from "@/app/apis/authApi";
+import { useSignInMutation } from "@/apis/authApi";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 

@@ -1,4 +1,5 @@
 "use client";
+
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu } from "lucide-react";
@@ -7,8 +8,13 @@ import SearchBar from "./search-bar";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import UserMenu from "./user-menu";
+import { ICurrentUser } from "@/types/auth.type";
 
-export default function MobileNavbar() {
+type Props = {
+  user: ICurrentUser;
+};
+
+const MobileNavbar = ({ user }: Props) => {
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
 
@@ -140,7 +146,10 @@ export default function MobileNavbar() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </Link>
-                <UserMenu />
+                <UserMenu
+                  isLoggedIn={user?.id ? true : false}
+                  user_image_url={user?.image}
+                />
               </div>
 
               <SearchBar />
@@ -150,4 +159,6 @@ export default function MobileNavbar() {
       )}
     </AnimatePresence>
   );
-}
+};
+
+export default MobileNavbar;
