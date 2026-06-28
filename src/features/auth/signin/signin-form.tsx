@@ -27,15 +27,15 @@ const SigninForm = () => {
     },
   });
 
-  const handleUserSignUp = async (values: SigninSchemaType) => {
+  const handleUserSignIn = async (values: SigninSchemaType) => {
     try {
       const response = await userSignIn(values).unwrap();
-      if (response.success) {
-        toast.success(response.message ?? "Account login successfully.");
+      if (response?.status_code === 200) {
+        toast.success(response?.message ?? "Account login successfully.");
         form.reset();
-        router.push("/signin");
+        router.push("/profile");
       } else {
-        toast.error(response.message ?? "Something went wrong.");
+        toast.error(response?.message ?? "Something went wrong.");
       }
     } catch (error: any) {
       console.error(error);
@@ -44,7 +44,7 @@ const SigninForm = () => {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(handleUserSignUp)} className="space-y-5">
+    <form onSubmit={form.handleSubmit(handleUserSignIn)} className="space-y-5">
       {isError && (
         <Alert variant="destructive">
           {" "}

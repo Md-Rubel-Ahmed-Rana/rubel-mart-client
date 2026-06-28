@@ -10,6 +10,7 @@ import {
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Image from "next/image";
+import LogoutButton from "@/features/auth/logout/logout-button";
 
 type Props = {
   isLoggedIn: boolean;
@@ -55,7 +56,9 @@ const UserMenu = ({ isLoggedIn, user_image_url }: Props) => {
           <Link href="/wishlist">Wishlist</Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem>
+          <LogoutButton />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

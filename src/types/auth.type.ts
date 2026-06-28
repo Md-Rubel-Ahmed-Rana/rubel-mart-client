@@ -5,6 +5,11 @@ export type ISignupPayload = {
   password: string;
 };
 
+export type ISignInBody = {
+  email: string;
+  password: string;
+};
+
 export type ICurrentUser = {
   id: string;
   first_name: string;

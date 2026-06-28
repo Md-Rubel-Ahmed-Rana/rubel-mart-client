@@ -1,26 +1,10 @@
-import { ICurrentUser } from "@/types/auth.type";
+import { ICurrentUser, ISignInBody, ISignupPayload } from "@/types/auth.type";
 import { baseApi } from "./baseApi";
-
-export type SignInBody = {
-  email: string;
-  password: string;
-};
-
-export type SignUpBody = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-};
-
-export type AuthResponse = {
-  success: boolean;
-  message: string;
-};
+import { IApiResponse } from "@/types/common.type";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    signIn: builder.mutation<AuthResponse, SignInBody>({
+    signIn: builder.mutation<IApiResponse<any>, ISignInBody>({
       query: (body) => ({
         url: "/auth/login",
         method: "POST",
@@ -29,7 +13,7 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
 
-    signUp: builder.mutation<AuthResponse, SignUpBody>({
+    signUp: builder.mutation<IApiResponse<any>, ISignupPayload>({
       query: (body) => ({
         url: "/auth/register",
         method: "POST",
@@ -43,20 +27,11 @@ export const authApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Auth"],
     }),
-
-    logout: builder.mutation<void, void>({
+    logout: builder.mutation<IApiResponse<any>, void>({
       query: () => ({
         url: "/auth/logout",
-        method: "POST",
+        method: "DELETE",
       }),
-
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          await queryFulfilled;
-
-          dispatch(baseApi.util.resetApiState());
-        } catch {}
-      },
     }),
   }),
 });
