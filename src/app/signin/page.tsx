@@ -9,10 +9,8 @@ export const metadata: Metadata = {
 
 const SigninPage = () => {
   return (
-    <div className="h-screen">
-      <div className="max-w-3xl mx-auto w-full flex justify-center items-center h-full max-h-[70dvh]">
-        <Signin />
-      </div>
+    <div className="max-w-3xl mx-auto w-full flex justify-center items-center my-10">
+      <Signin />
     </div>
   );
 };

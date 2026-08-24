@@ -4,12 +4,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { signinSchema, SigninSchemaType } from "@/validations/auth.validation";
 import { useSignInMutation } from "@/apis/authApi";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import InputField from "@/common/InputField";
 
 const SigninForm = () => {
   const [userSignIn, { isLoading, isError, error, isSuccess, data }] =
@@ -41,7 +41,10 @@ const SigninForm = () => {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(handleUserSignIn)} className="space-y-5">
+    <form
+      onSubmit={form.handleSubmit(handleUserSignIn)}
+      className="space-y-5 w-full min-w-md"
+    >
       {isError && (
         <Alert variant="destructive">
           {" "}
@@ -55,39 +58,35 @@ const SigninForm = () => {
           <AlertDescription>{data?.message}</AlertDescription>
         </Alert>
       )}
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Email Address</label>
-
-        <Input
+      <div className="space-y-8">
+        <InputField
           type="email"
-          disabled={isLoading}
+          label="Email Address"
           placeholder="john@example.com"
           {...form.register("email")}
-        />
-
-        {form.formState.errors.email && (
-          <p className="text-destructive text-sm">
-            {form.formState.errors.email.message}
-          </p>
-        )}
-      </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Password</label>
-
-        <Input
-          type="password"
+          error={form.formState.errors.email?.message}
+          title="Enter your email address"
           disabled={isLoading}
-          placeholder="Enter your password"
-          {...form.register("password")}
         />
 
-        {form.formState.errors.password && (
-          <p className="text-destructive text-sm">
-            {form.formState.errors.password.message}
-          </p>
-        )}
+        <InputField
+          type="password"
+          label="Password"
+          placeholder="********"
+          {...form.register("password")}
+          error={form.formState.errors.password?.message}
+          title="Enter your password"
+          disabled={isLoading}
+        />
       </div>
-      <Button type="submit" className="w-full" disabled={isLoading}>
+
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isLoading}
+        title={isLoading ? "Signing in..." : "Click to continue signing in"}
+        aria-label={isLoading ? "Signing in..." : "Sign In"}
+      >
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {isLoading ? "Signing..." : "Sign In"}
       </Button>

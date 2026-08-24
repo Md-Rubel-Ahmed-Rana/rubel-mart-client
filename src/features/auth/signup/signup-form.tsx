@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { signupSchema, SignupSchemaType } from "@/validations/auth.validation";
 import { useSignUpMutation } from "@/apis/authApi";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import InputField from "@/common/InputField";
 
 const SignupForm = () => {
   const [userSignUp, { isLoading }] = useSignUpMutation();
@@ -42,73 +42,64 @@ const SignupForm = () => {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(handleUserSignUp)} className="space-y-5">
+    <form
+      onSubmit={form.handleSubmit(handleUserSignUp)}
+      className="space-y-5  w-full min-w-lg"
+    >
       <div className="grid gap-5 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium">First Name</label>
-
-          <Input
-            disabled={isLoading}
+          <InputField
+            type="text"
+            label="First Name"
             placeholder="John"
             {...form.register("first_name")}
+            error={form.formState.errors.first_name?.message}
+            title="Enter your first name"
+            disabled={isLoading}
           />
-
-          {form.formState.errors.first_name && (
-            <p className="text-destructive text-sm">
-              {form.formState.errors.first_name.message}
-            </p>
-          )}
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Last Name</label>
-
-          <Input
-            disabled={isLoading}
+          <InputField
+            type="text"
+            label="Last Name"
             placeholder="Doe"
             {...form.register("last_name")}
+            error={form.formState.errors.last_name?.message}
+            title="Enter your last name"
+            disabled={isLoading}
           />
-
-          {form.formState.errors.last_name && (
-            <p className="text-destructive text-sm">
-              {form.formState.errors.last_name.message}
-            </p>
-          )}
         </div>
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Email Address</label>
-
-        <Input
+        <InputField
           type="email"
-          disabled={isLoading}
+          label="Email Address"
           placeholder="john@example.com"
           {...form.register("email")}
+          error={form.formState.errors.email?.message}
+          title="Enter your email address"
+          disabled={isLoading}
         />
-
-        {form.formState.errors.email && (
-          <p className="text-destructive text-sm">
-            {form.formState.errors.email.message}
-          </p>
-        )}
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Password</label>
-
-        <Input
+        <InputField
           type="password"
-          disabled={isLoading}
-          placeholder="Enter your password"
+          label="Password"
+          placeholder="********"
           {...form.register("password")}
+          error={form.formState.errors.password?.message}
+          title="Enter your password"
+          disabled={isLoading}
         />
-
-        {form.formState.errors.password && (
-          <p className="text-destructive text-sm">
-            {form.formState.errors.password.message}
-          </p>
-        )}
       </div>
-      <Button type="submit" className="w-full" disabled={isLoading}>
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isLoading}
+        title={isLoading ? "Creating account..." : "Click to create account"}
+        aria-label={isLoading ? "Creating account..." : "Create Account"}
+      >
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {isLoading ? "Creating" : "Create Account"}
       </Button>
