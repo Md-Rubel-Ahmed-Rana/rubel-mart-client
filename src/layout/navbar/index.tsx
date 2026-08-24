@@ -5,7 +5,7 @@ import DesktopNavbar from "./desktop-navbar";
 import MobileNavbar from "./mobile-navbar";
 import { ICurrentUser } from "@/types/auth.type";
 
-export default function Navbar() {
+const Navbar = () => {
   const { data, isLoading } = useGetCurrentUserQuery();
   const user = data?.data as ICurrentUser;
   return (
@@ -14,4 +14,6 @@ export default function Navbar() {
       <MobileNavbar user={user} />
     </header>
   );
-}
+};
+
+export default Navbar;
