@@ -5,10 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  signupSchema,
-  SignupSchemaType,
-} from "@/app/validations/auth.validation";
+import { signupSchema, SignupSchemaType } from "@/validations/auth.validation";
 import { useSignUpMutation } from "@/apis/authApi";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

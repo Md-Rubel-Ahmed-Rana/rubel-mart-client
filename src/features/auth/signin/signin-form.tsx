@@ -6,10 +6,7 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  signinSchema,
-  SigninSchemaType,
-} from "@/app/validations/auth.validation";
+import { signinSchema, SigninSchemaType } from "@/validations/auth.validation";
 import { useSignInMutation } from "@/apis/authApi";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
