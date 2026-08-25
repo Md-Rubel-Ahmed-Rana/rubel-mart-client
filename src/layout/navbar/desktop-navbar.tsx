@@ -18,7 +18,7 @@ type Props = {
 
 const DesktopNavbar = ({ isLoading, user }: Props) => {
   return (
-    <div className="hidden lg:block">
+    <div className="hidden lg:block pr-2">
       <div className="container mx-auto">
         <div className="flex h-18 items-center gap-6">
           <Link
