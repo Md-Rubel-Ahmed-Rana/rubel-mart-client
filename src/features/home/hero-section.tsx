@@ -1,11 +1,11 @@
 import { ArrowRight, ShoppingBag } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function HeroSection() {
   return (
     <section className="relative overflow-hidden">
-      <div className="container mx-auto px-4 py-20 lg:py-32">
+      <div className="container mx-auto px-4 py-10 lg:py-16">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
@@ -53,22 +53,12 @@ export default function HeroSection() {
           </div>
 
           <div className="relative">
-            <div className="rounded-3xl border bg-card p-8 shadow-xl">
-              <div className="aspect-square rounded-2xl bg-linear-to-br from-primary/20 via-secondary/20 to-accent/20" />
-
-              <div className="mt-6 space-y-4">
-                <div className="h-4 rounded bg-muted" />
-                <div className="h-4 w-2/3 rounded bg-muted" />
-              </div>
-            </div>
-
-            <div className="absolute -left-8 top-12 rounded-xl border bg-background p-4 shadow-lg">
-              🔥 Flash Sale
-            </div>
-
-            <div className="absolute -right-8 bottom-12 rounded-xl border bg-background p-4 shadow-lg">
-              🚚 Free Delivery
-            </div>
+            <Image
+              src={"/images/banner_large.png"}
+              alt="Hero Banner"
+              width={600}
+              height={400}
+            />
           </div>
         </div>
       </div>
