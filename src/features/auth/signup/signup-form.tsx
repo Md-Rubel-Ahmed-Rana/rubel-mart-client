@@ -27,17 +27,27 @@ const SignupForm = () => {
   const handleUserSignUp = async (values: SignupSchemaType) => {
     try {
       const response = await userSignUp(values).unwrap();
-
       if (response.success) {
-        toast.success(response.message ?? "Account created successfully.");
+        toast.success(
+          response?.data?.message ||
+            response?.message ||
+            "Account created successfully.",
+        );
         form.reset();
         router.push("/signin");
       } else {
-        toast.error(response.message ?? "Something went wrong.");
+        toast.error(
+          response?.data?.message ||
+            response?.message ||
+            "Something went wrong.",
+        );
       }
     } catch (error: any) {
-      console.error(error);
-      toast.error(error?.message || "Something went wrong. Please try again.");
+      toast.error(
+        error?.data?.message ||
+          error?.message ||
+          "Something went wrong. Please try again.",
+      );
     }
   };
 
@@ -96,6 +106,7 @@ const SignupForm = () => {
       <Button
         type="submit"
         className="w-full"
+        size={"lg"}
         disabled={isLoading}
         title={isLoading ? "Creating account..." : "Click to create account"}
         aria-label={isLoading ? "Creating account..." : "Create Account"}

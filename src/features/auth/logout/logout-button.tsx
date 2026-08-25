@@ -14,9 +14,13 @@ const LogoutButton = () => {
     try {
       const response = await userLogout().unwrap();
       if (response?.status_code === 200) {
-        toast.success(response?.message || "Logged out successfully.");
+        toast.success(
+          response?.message ||
+            response?.data?.message ||
+            "Logged out successfully.",
+        );
 
-        router.replace("/login");
+        router.replace("/signin");
         router.refresh();
       }
     } catch (error: any) {

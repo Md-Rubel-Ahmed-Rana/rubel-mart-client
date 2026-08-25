@@ -28,15 +28,26 @@ const SigninForm = () => {
     try {
       const response = await userSignIn(values).unwrap();
       if (response?.status_code === 200) {
-        toast.success(response?.message ?? "Account login successfully.");
+        toast.success(
+          response?.message ||
+            response?.data?.message ||
+            "Account login successfully.",
+        );
         form.reset();
         router.push("/profile");
       } else {
-        toast.error(response?.message ?? "Something went wrong.");
+        toast.error(
+          response?.message ||
+            response?.data?.message ||
+            "Something went wrong.",
+        );
       }
     } catch (error: any) {
-      console.error(error);
-      toast.error(error?.message || "Something went wrong. Please try again.");
+      toast.error(
+        error?.message ||
+          error?.data?.message ||
+          "Something went wrong. Please try again.",
+      );
     }
   };
 
@@ -83,6 +94,7 @@ const SigninForm = () => {
       <Button
         type="submit"
         className="w-full"
+        size={"lg"}
         disabled={isLoading}
         title={isLoading ? "Signing in..." : "Click to continue signing in"}
         aria-label={isLoading ? "Signing in..." : "Sign In"}
