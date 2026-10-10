@@ -1,5 +1,5 @@
 import BrandsSection from "./brands-section";
-import CategoriesSection from "./categories-section";
+import CategoriesSection from "./categories";
 import FeaturedProductsSection from "./featured-products";
 import FlashSaleSection from "./flash-sale";
 import HeroSection from "./hero-section";
