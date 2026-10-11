@@ -37,10 +37,7 @@ const BrandCard = ({ brand }: Props) => {
               alt={`${brand.name} logo`}
               loading="lazy"
               onError={() => setImageError(true)}
-              className="h-full max-w-full object-contain
-                grayscale opacity-75 transition-all duration-300
-                group-hover:grayscale-0 group-hover:opacity-100
-                motion-reduce:transition-none"
+              className="h-full max-w-full object-contain"
             />
           ) : (
             <span
